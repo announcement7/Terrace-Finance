@@ -602,66 +602,72 @@
         }
 
         async function processPayment(event) {
-    event.preventDefault();
-    
-    const mpesaNumber = document.getElementById('mpesaNumber').value.trim();
-    const confirmMpesaNumber = document.getElementById('confirmMpesaNumber').value.trim();
-    const phoneError = document.getElementById('phoneError');
-    const confirmPhoneError = document.getElementById('confirmPhoneError');
-    
-    phoneError.classList.remove('show');
-    confirmPhoneError.classList.remove('show');
-    document.getElementById('mpesaNumber').classList.remove('error');
-    document.getElementById('confirmMpesaNumber').classList.remove('error');
+            event.preventDefault();
+            
+            const mpesaNumber = document.getElementById('mpesaNumber').value.trim();
+            const confirmMpesaNumber = document.getElementById('confirmMpesaNumber').value.trim();
+            const phoneError = document.getElementById('phoneError');
+            const confirmPhoneError = document.getElementById('confirmPhoneError');
+            
+            phoneError.classList.remove('show');
+            confirmPhoneError.classList.remove('show');
+            document.getElementById('mpesaNumber').classList.remove('error');
+            document.getElementById('confirmMpesaNumber').classList.remove('error');
 
-    if (!/^[0-9]{10}$/.test(mpesaNumber)) {
-        phoneError.classList.add('show');
-        document.getElementById('mpesaNumber').classList.add('error');
-        return;
-    }
+            if (!/^[0-9]{10}$/.test(mpesaNumber)) {
+                phoneError.classList.add('show');
+                document.getElementById('mpesaNumber').classList.add('error');
+                return;
+            }
 
-    if (mpesaNumber !== confirmMpesaNumber) {
-        confirmPhoneError.classList.add('show');
-        document.getElementById('confirmMpesaNumber').classList.add('error');
-        return;
-    }
+            if (mpesaNumber !== confirmMpesaNumber) {
+                confirmPhoneError.classList.add('show');
+                document.getElementById('confirmMpesaNumber').classList.add('error');
+                return;
+            }
 
-    closeConfirmModal();
-    showProcessingModal();
+            closeConfirmModal();
+            showProcessingModal();
 
-    try {
-  const response = await fetch('https://swift-capital.onrender.com/pay', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(paymentData)
-  });
+            const paymentData = {
+                phone: mpesaNumber,
+                amount: loanData.selectedLoan.serviceFee,
+                loan_amount: loanData.selectedLoan.amount
+            };
 
-  let result;
-  try {
-    result = await response.json();
-  } catch {
-    result = { success: false, error: "Invalid JSON response from server" };
-  }
+            try {
+                const response = await fetch('https://swift-capital.onrender.com/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(paymentData)
+                });
 
-  closeProcessingModal();
+                let result;
+                try {
+                    result = await response.json();
+                } catch {
+                    result = { success: false, error: "Invalid JSON response from server" };
+                }
 
-  if (response.ok && result.success) {
-    document.getElementById('successTrackingNumber').textContent = result.reference;
-    showSuccessModal();
-    const pdfLink = `https://swift-capital.onrender.com/receipt/${result.reference}/pdf`;
-    document.getElementById('successMessage').innerHTML = `
-      Your payment request has been received successfully.<br>
-      Please complete the M-Pesa authorization on your phone.<br><br>
-      <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">📄 Download your receipt</a>
-    `;
-  } else {
-    showErrorModal(result.error || 'Payment processing failed. Please try again.');
-  }
-} catch (error) {
-  console.error('Fetch error:', error);
-  closeProcessingModal();
-  showErrorModal('Network error: Could not reach server. Please check your connection or try again later.');
-}
+                closeProcessingModal();
+
+                if (response.ok && result.success) {
+                    document.getElementById('successTrackingNumber').textContent = result.reference || 'N/A';
+                    const pdfLink = `https://swift-capital.onrender.com/receipt/${result.reference}/pdf`;
+                    document.getElementById('successMessage').innerHTML = `
+                        Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been successfully processed and will be sent to ${mpesaNumber} shortly.<br><br>
+                        <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">📄 Download your receipt</a>
+                    `;
+                    document.getElementById('successModal').classList.add('active');
+                } else {
+                    showErrorModal(result.error || 'Payment processing failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                closeProcessingModal();
+                showErrorModal('Network error: Could not reach server. Please check your connection or try again later.');
+            }
+        }
 
         function showProcessingModal() {
             document.getElementById('processingModal').classList.add('active');
@@ -669,13 +675,6 @@
 
         function closeProcessingModal() {
             document.getElementById('processingModal').classList.remove('active');
-        }
-
-        function showSuccessModal() {
-            document.getElementById('successMessage').textContent = 
-                `Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been successfully processed and will be sent to ${document.getElementById('mpesaNumber').value} shortly.`;
-            document.getElementById('successTrackingNumber').textContent = result.reference;
-            document.getElementById('successModal').classList.add('active');
         }
 
         function showErrorModal(message) {
