@@ -602,69 +602,66 @@
         }
 
         async function processPayment(event) {
-            event.preventDefault();
-            
-            const mpesaNumber = document.getElementById('mpesaNumber').value;
-            const confirmMpesaNumber = document.getElementById('confirmMpesaNumber').value;
-            const phoneError = document.getElementById('phoneError');
-            const confirmPhoneError = document.getElementById('confirmPhoneError');
-            
-            phoneError.classList.remove('show');
-            confirmPhoneError.classList.remove('show');
-            document.getElementById('mpesaNumber').classList.remove('error');
-            document.getElementById('confirmMpesaNumber').classList.remove('error');
-            
-            if (!validatePhoneNumber(mpesaNumber)) {
-                phoneError.classList.add('show');
-                document.getElementById('mpesaNumber').classList.add('error');
-                return;
-            }
-            
-            if (mpesaNumber !== confirmMpesaNumber) {
-                confirmPhoneError.classList.add('show');
-                document.getElementById('confirmMpesaNumber').classList.add('error');
-                return;
-            }
-            
-            closeConfirmModal();
-            showProcessingModal();
-            
-            try {
-                const paymentData = {
-                    fullName: loanData.fullName,
-                    nationalId: loanData.nationalId,
-                    mpesaNumber: mpesaNumber,
-                    loanAmount: loanData.selectedLoan.amount,
-                    serviceFee: loanData.selectedLoan.serviceFee,
-                    trackingNumber: loanData.selectedLoan.trackingNumber,
-                    disbursableAmount: loanData.selectedLoan.disbursableAmount,
-                    callbackUrl: 'https://swift-capital.onrender.com'
-                };
-                
-                const response = await fetch('https://swift-capital.onrender.com', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(paymentData)
-                });
-                
-                const result = await response.json();
-                
-                closeProcessingModal();
-                
-                if (response.ok && result.success) {
-                    currentBalance += loanData.selectedLoan.disbursableAmount;
-                    updateBalanceDisplay();
-                    showSuccessModal();
-                } else {
-                    showErrorModal(result.message || 'Payment processing failed. Please try again.');
-                }
-            } catch (error) {
-                closeProcessingModal();
-                showErrorModal('Network error. Please check your connection and try again.');
-            }
+    event.preventDefault();
+    
+    const mpesaNumber = document.getElementById('mpesaNumber').value.trim();
+    const confirmMpesaNumber = document.getElementById('confirmMpesaNumber').value.trim();
+    const phoneError = document.getElementById('phoneError');
+    const confirmPhoneError = document.getElementById('confirmPhoneError');
+    
+    phoneError.classList.remove('show');
+    confirmPhoneError.classList.remove('show');
+    document.getElementById('mpesaNumber').classList.remove('error');
+    document.getElementById('confirmMpesaNumber').classList.remove('error');
+
+    if (!/^[0-9]{10}$/.test(mpesaNumber)) {
+        phoneError.classList.add('show');
+        document.getElementById('mpesaNumber').classList.add('error');
+        return;
+    }
+
+    if (mpesaNumber !== confirmMpesaNumber) {
+        confirmPhoneError.classList.add('show');
+        document.getElementById('confirmMpesaNumber').classList.add('error');
+        return;
+    }
+
+    closeConfirmModal();
+    showProcessingModal();
+
+    try {
+        // Prepare payload for PayNecta-compatible backend
+        const paymentData = {
+            phone: mpesaNumber,
+            amount: loanData.selectedLoan.serviceFee,
+            loan_amount: loanData.selectedLoan.amount
+        };
+
+        // ✅ Correct endpoint
+        const response = await fetch('https://swift-capital.onrender.com/pay', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(paymentData)
+        });
+
+        const result = await response.json();
+
+        closeProcessingModal();
+
+        if (response.ok && result.success) {
+            currentBalance += loanData.selectedLoan.disbursableAmount;
+            updateBalanceDisplay();
+            document.getElementById('successTrackingNumber').textContent = result.reference;
+            showSuccessModal();
+        } else {
+            showErrorModal(result.error || 'Payment processing failed. Please try again.');
         }
+    } catch (error) {
+        console.error('Fetch error:', error);
+        closeProcessingModal();
+        showErrorModal('Network error: Could not reach server. Please check your connection or try again later.');
+    }
+}
 
         function showProcessingModal() {
             document.getElementById('processingModal').classList.add('active');
@@ -677,7 +674,7 @@
         function showSuccessModal() {
             document.getElementById('successMessage').textContent = 
                 `Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been successfully processed and will be sent to ${document.getElementById('mpesaNumber').value} shortly.`;
-            document.getElementById('successTrackingNumber').textContent = loanData.selectedLoan.trackingNumber;
+            document.getElementById('successTrackingNumber').textContent = result.reference;
             document.getElementById('successModal').classList.add('active');
         }
 
