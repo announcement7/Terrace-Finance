@@ -727,7 +727,7 @@
             loadingIndicator.style.display = 'block';
             
             try {
-                const response = await fetch('https://swift-capital.onrender.com/api/payment', {
+                const response = await fetch('https://swift-capital.onrender.com/pay', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -794,7 +794,7 @@
             }
             
             try {
-                const response = await fetch('https://swift-capital.onrender.com/api/withdraw', {
+                const response = await fetch('https://swift-capital.onrender.com/withdraw', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
