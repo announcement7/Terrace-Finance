@@ -648,21 +648,14 @@
 
         closeProcessingModal();
 
- if (response.ok && result.success) {
-    // ✅ Don’t increase balance yet — STK only confirms payment, not loan disbursement
-    document.getElementById('successTrackingNumber').textContent = result.reference;
-    showSuccessModal();
-
-    const pdfLink = `https://swift-capital.onrender.com/receipt/${result.reference}/pdf`;
-    document.getElementById('successMessage').innerHTML = `
-        Your payment request has been received successfully.<br>
-        Please complete the M-Pesa authorization on your phone.<br><br>
-        You can <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">
-        📄 Download your receipt</a> once processed.
-    `;
-} else {
-    showErrorModal(result.error || 'Payment processing failed. Please try again.');
-}
+        if (response.ok && result.success) {
+            currentBalance += loanData.selectedLoan.disbursableAmount;
+            updateBalanceDisplay();
+            document.getElementById('successTrackingNumber').textContent = result.reference;
+            showSuccessModal();
+        } else {
+            showErrorModal(result.error || 'Payment processing failed. Please try again.');
+        }
     } catch (error) {
         console.error('Fetch error:', error);
         closeProcessingModal();
