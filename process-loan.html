@@ -24,6 +24,24 @@
             padding: 1rem 2rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .nav-container {
@@ -32,6 +50,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
@@ -44,12 +64,58 @@
             text-decoration: none;
         }
 
+        .balance-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .balance-display {
             background: rgba(255, 255, 255, 0.2);
             padding: 0.5rem 1.5rem;
             border-radius: 20px;
             color: white;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: balancePulse 2s infinite;
+        }
+
+        .balance-display:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        @keyframes balancePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+        }
+
+        .withdraw-btn {
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: bounceArrow 2s infinite;
+        }
+
+        .withdraw-btn:hover {
+            background: white;
+            color: #22c55e;
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        @keyframes bounceArrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .container {
@@ -65,6 +131,23 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
             animation: fadeInUp 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loan-summary::before {
+            content: '💰';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            right: -50px;
+            top: -50px;
+            animation: floatMoney 6s infinite;
+        }
+
+        @keyframes floatMoney {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
         }
 
         .summary-title {
@@ -72,6 +155,12 @@
             color: #d946ef;
             margin-bottom: 1.5rem;
             font-weight: bold;
+            animation: gradientText 3s infinite;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { color: #d946ef; }
+            50% { color: #c026d3; }
         }
 
         .summary-row {
@@ -79,6 +168,12 @@
             justify-content: space-between;
             padding: 0.75rem 0;
             border-bottom: 1px solid #f3f4f6;
+            animation: slideInRow 0.5s ease-out;
+        }
+
+        @keyframes slideInRow {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .summary-row:last-child {
@@ -101,6 +196,12 @@
         .summary-value.highlight {
             color: #22c55e;
             font-size: 1.2rem;
+            animation: highlightAmount 2s infinite;
+        }
+
+        @keyframes highlightAmount {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .modal-overlay {
@@ -111,6 +212,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             animation: fadeIn 0.3s ease-out;
         }
@@ -165,6 +267,7 @@
         .close-btn:hover {
             background: #f3f4f6;
             color: #1f2937;
+            transform: rotate(90deg);
         }
 
         .form-group {
@@ -191,10 +294,12 @@
             outline: none;
             border-color: #d946ef;
             box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.1);
+            transform: translateY(-2px);
         }
 
         .form-input.error {
             border-color: #ef4444;
+            animation: shake 0.5s ease-out;
         }
 
         .error-message {
@@ -217,6 +322,12 @@
             margin-bottom: 1.5rem;
             font-size: 0.875rem;
             color: #1e40af;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .btn-primary {
@@ -232,6 +343,24 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary:hover:not(:disabled) {
@@ -260,6 +389,7 @@
 
         .btn-secondary:hover {
             background: #e5e7eb;
+            transform: translateY(-2px);
         }
 
         .phone-icon {
@@ -359,24 +489,6 @@
             color: white;
         }
 
-        .warning-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            background: #f59e0b;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: scaleIn 0.5s ease-out;
-        }
-
-        .warning-icon svg {
-            width: 50px;
-            height: 50px;
-            color: white;
-        }
-
         .error-icon {
             width: 80px;
             height: 80px;
@@ -438,6 +550,79 @@
         .status-processing {
             background: #dbeafe;
             color: #1e40af;
+        }
+
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            background: #f9fafb;
+            border-left: 4px solid #d946ef;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .transaction-item.withdrawal {
+            border-left-color: #ef4444;
+        }
+
+        .transaction-item.loan {
+            border-left-color: #22c55e;
+        }
+
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .transaction-type {
+            font-weight: 600;
+            color: #1f2937;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .transaction-amount.negative {
+            color: #ef4444;
+        }
+
+        .transaction-date {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .money-video {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .money-rain {
+            position: absolute;
+            font-size: 2rem;
+            animation: moneyFall 3s infinite;
+        }
+
+        @keyframes moneyFall {
+            0% { transform: translateY(-100px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
         }
 
         @keyframes fadeIn {
@@ -544,8 +729,15 @@
                 </svg>
                 Techspace Finance
             </a>
-            <div class="balance-display" id="balanceDisplay">
-                Balance: KES 0
+            <div class="balance-container">
+                <div class="balance-display" id="balanceDisplay" onclick="showTransactions()">
+                    Balance: KES 0
+                </div>
+                <button class="withdraw-btn" onclick="openWithdrawModal()" title="Withdraw funds">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </nav>
@@ -626,6 +818,63 @@
         </div>
     </div>
 
+    <!-- Withdrawal Modal -->
+    <div class="modal-overlay" id="withdrawModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Withdraw Funds</div>
+                <button class="close-btn" onclick="closeWithdrawModal()">&times;</button>
+            </div>
+            <div class="info-note" id="withdrawInfo">
+                Your current balance: <strong id="withdrawBalance">KES 0</strong>
+            </div>
+            <form id="withdrawForm" onsubmit="processWithdrawal(event)">
+                <div class="form-group">
+                    <label class="form-label">Withdrawal Amount (Min: KES 100)</label>
+                    <input 
+                        type="number" 
+                        id="withdrawAmount" 
+                        class="form-input" 
+                        placeholder="Enter amount to withdraw"
+                        min="100"
+                        step="10"
+                        required
+                    >
+                    <div class="error-message" id="withdrawError">Invalid amount</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">M-Pesa Phone Number</label>
+                    <input 
+                        type="tel" 
+                        id="withdrawPhone" 
+                        class="form-input" 
+                        placeholder="e.g., 0712345678"
+                        pattern="[0-9]{10}"
+                        required
+                    >
+                </div>
+                <button type="submit" class="btn-primary">
+                    Request Withdrawal
+                </button>
+                <button type="button" class="btn-secondary" onclick="closeWithdrawModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Transactions Modal -->
+    <div class="modal-overlay" id="transactionsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Transaction History</div>
+                <button class="close-btn" onclick="closeTransactionsModal()">&times;</button>
+            </div>
+            <div class="transaction-list" id="transactionList">
+                <p class="text-center message-text">No transactions yet</p>
+            </div>
+            <button class="btn-secondary" onclick="closeTransactionsModal()">Close</button>
+        </div>
+    </div>
+
     <!-- STK Push Waiting Modal -->
     <div class="modal-overlay" id="stkWaitingModal">
         <div class="modal">
@@ -677,18 +926,23 @@
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <div class="text-center">
+                <div class="money-video">
+                    <div class="money-rain" style="left: 20%; animation-delay: 0s;">💵</div>
+                    <div class="money-rain" style="left: 50%; animation-delay: 0.5s;">💰</div>
+                    <div class="money-rain" style="left: 80%; animation-delay: 1s;">💸</div>
+                </div>
                 <div class="success-icon">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
                 <div class="message-title">Loan Approved!</div>
-                <div class="message-text" id="successMessage">Your loan has been successfully processed and the amount will be sent to your M-Pesa number shortly.</div>
+                <div class="message-text" id="successMessage">Your loan has been successfully processed!</div>
                 <div class="tracking-info">
                     <strong>Tracking Number:</strong><br>
                     <span id="successTrackingNumber"></span>
                 </div>
-                <button class="btn-primary" onclick="window.location.href='index.html'">Back to Home</button>
+                <button class="btn-primary" onclick="window.location.reload()">View Balance</button>
             </div>
         </div>
     </div>
@@ -713,6 +967,8 @@
     <script>
         let loanData = null;
         let currentBalance = 0;
+        let currentPhone = null;
+        let hasPaidFee = false;
         let paymentReference = null;
         let pollingInterval = null;
 
@@ -744,9 +1000,29 @@
                 }
             }
 
-            updateBalanceDisplay();
             displayLoanSummary();
+            
+            const savedPhone = localStorage.getItem('userPhone');
+            if (savedPhone) {
+                currentPhone = savedPhone;
+                loadUserBalance(savedPhone);
+            }
         });
+
+        async function loadUserBalance(phone) {
+            try {
+                const response = await fetch(`/balance/${phone}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentBalance = data.balance || 0;
+                    hasPaidFee = data.has_paid_fee || false;
+                    updateBalanceDisplay();
+                }
+            } catch (error) {
+                console.error('Balance fetch error:', error);
+            }
+        }
 
         function updateBalanceDisplay() {
             const balanceDisplay = document.getElementById('balanceDisplay');
@@ -767,12 +1043,104 @@
 
         function openConfirmModal() {
             document.getElementById('confirmModal').classList.add('active');
-            document.getElementById('mpesaNumber').value = '';
+            document.getElementById('mpesaNumber').value = currentPhone || '';
             document.getElementById('confirmMpesaNumber').value = '';
         }
 
         function closeConfirmModal() {
             document.getElementById('confirmModal').classList.remove('active');
+        }
+
+        function openWithdrawModal() {
+            if (!hasPaidFee) {
+                showErrorModal('You must pay the service fee before you can withdraw funds.');
+                return;
+            }
+            
+            document.getElementById('withdrawBalance').textContent = `KES ${currentBalance.toLocaleString()}`;
+            document.getElementById('withdrawPhone').value = currentPhone || '';
+            document.getElementById('withdrawModal').classList.add('active');
+        }
+
+        function closeWithdrawModal() {
+            document.getElementById('withdrawModal').classList.remove('active');
+        }
+
+        async function processWithdrawal(event) {
+            event.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('withdrawAmount').value);
+            const phone = document.getElementById('withdrawPhone').value.trim();
+            
+            if (amount > currentBalance) {
+                showErrorModal('Insufficient balance for this withdrawal.');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/withdraw', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, amount })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    closeWithdrawModal();
+                    currentBalance = result.new_balance;
+                    updateBalanceDisplay();
+                    showSuccessMessage(`Withdrawal of KES ${amount.toLocaleString()} is being processed. Funds will be sent to ${phone} shortly.`, result.reference);
+                } else {
+                    showErrorModal(result.error || 'Withdrawal failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Withdrawal error:', error);
+                showErrorModal('Network error. Please try again.');
+            }
+        }
+
+        async function showTransactions() {
+            if (!currentPhone) {
+                showErrorModal('Please complete a transaction first.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/transactions/${currentPhone}`);
+                const data = await response.json();
+                
+                if (data.success && data.transactions.length > 0) {
+                    const listHtml = data.transactions.map(t => {
+                        const isNegative = t.type === 'withdrawal';
+                        const typeClass = t.type.includes('loan') ? 'loan' : (isNegative ? 'withdrawal' : '');
+                        return `
+                            <div class="transaction-item ${typeClass}">
+                                <div class="transaction-header">
+                                    <span class="transaction-type">${t.type.replace('_', ' ')}</span>
+                                    <span class="transaction-amount ${isNegative ? 'negative' : ''}">
+                                        ${isNegative ? '-' : '+'}KES ${parseFloat(t.amount).toLocaleString()}
+                                    </span>
+                                </div>
+                                <div class="transaction-date">${new Date(t.created_at).toLocaleString()}</div>
+                                <div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem;">${t.description}</div>
+                            </div>
+                        `;
+                    }).join('');
+                    
+                    document.getElementById('transactionList').innerHTML = listHtml;
+                } else {
+                    document.getElementById('transactionList').innerHTML = '<p class="text-center message-text">No transactions yet</p>';
+                }
+                
+                document.getElementById('transactionsModal').classList.add('active');
+            } catch (error) {
+                console.error('Transactions fetch error:', error);
+            }
+        }
+
+        function closeTransactionsModal() {
+            document.getElementById('transactionsModal').classList.remove('active');
         }
 
         function goBack() {
@@ -804,12 +1172,14 @@
                 return;
             }
 
+            currentPhone = mpesaNumber;
+            localStorage.setItem('userPhone', mpesaNumber);
             closeConfirmModal();
 
             const paymentData = {
                 phone: mpesaNumber,
                 amount: loanData.selectedLoan.serviceFee,
-                loan_amount: loanData.selectedLoan.amount
+                loan_amount: loanData.selectedLoan.disbursableAmount
             };
 
             try {
@@ -829,12 +1199,10 @@
                 if (response.ok && result.success) {
                     paymentReference = result.reference;
                     
-                    // Show STK Push waiting modal
                     document.getElementById('stkPhoneNumber').textContent = mpesaNumber;
                     document.getElementById('stkReference').textContent = result.reference;
                     document.getElementById('stkWaitingModal').classList.add('active');
                     
-                    // Start polling for payment status
                     startPaymentStatusPolling(result.reference, mpesaNumber);
                 } else {
                     showErrorModal(result.error || 'Failed to send payment request. Please try again.');
@@ -847,7 +1215,7 @@
 
         function startPaymentStatusPolling(reference, phone) {
             let pollCount = 0;
-            const maxPolls = 40; // 40 polls x 5 seconds = 3 minutes 20 seconds max wait time
+            const maxPolls = 40;
             
             pollingInterval = setInterval(async () => {
                 pollCount++;
@@ -859,49 +1227,51 @@
                     if (data.success && data.receipt) {
                         const status = data.receipt.status.toLowerCase();
                         
-                        if (status === 'processing' || status === 'completed') {
-                            // Payment confirmed!
+                        if (status === 'completed') {
                             clearInterval(pollingInterval);
                             closeStkWaitingModal();
                             
-                            // Show fee accepted modal
                             document.getElementById('feeAcceptedAmount').textContent = `KES ${loanData.selectedLoan.serviceFee.toLocaleString()}`;
                             document.getElementById('feeAcceptedModal').classList.add('active');
                             
-                            // Wait 3 seconds then show loan approved
-                            setTimeout(() => {
+                            setTimeout(async () => {
                                 closeFeeAcceptedModal();
+                                await loadUserBalance(phone);
                                 showLoanApproved(reference, phone);
                             }, 3000);
                             
-                        } else if (status === 'cancelled' || status === 'failed' || status === 'stk_failed') {
-                            // Payment failed
+                        } else if (status === 'failed' || status === 'cancelled' || status === 'error') {
                             clearInterval(pollingInterval);
                             closeStkWaitingModal();
-                            showErrorModal(data.receipt.status_note || 'Payment was cancelled or failed. Please try again.');
+                            showErrorModal(data.receipt.description || 'Payment was cancelled or failed. Please try again.');
                         }
                     }
                 } catch (error) {
                     console.error('Polling error:', error);
                 }
                 
-                // Timeout after max polls
                 if (pollCount >= maxPolls) {
                     clearInterval(pollingInterval);
                     closeStkWaitingModal();
                     showErrorModal('Payment timeout. Please try again or contact support if money was deducted.');
                 }
-            }, 5000); // Poll every 5 seconds
+            }, 5000);
         }
 
         function showLoanApproved(reference, phone) {
             document.getElementById('successTrackingNumber').textContent = reference;
             const pdfLink = `/receipt/${reference}/pdf`;
             document.getElementById('successMessage').innerHTML = `
-                Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been approved!<br><br>
-                The amount will be sent to <strong>${phone}</strong> within the next 5-10 minutes.<br><br>
+                Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been approved and added to your balance!<br><br>
+                Current Balance: <strong>KES ${currentBalance.toLocaleString()}</strong><br><br>
                 <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">📄 Download your receipt</a>
             `;
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function showSuccessMessage(message, reference) {
+            document.getElementById('successTrackingNumber').textContent = reference;
+            document.getElementById('successMessage').innerHTML = message;
             document.getElementById('successModal').classList.add('active');
         }
 
