@@ -262,15 +262,83 @@
             background: #e5e7eb;
         }
 
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
+        .phone-icon {
+            width: 80px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .phone-body {
+            width: 80px;
+            height: 120px;
+            background: #1f2937;
+            border-radius: 12px;
+            border: 3px solid #374151;
+            position: relative;
+            animation: phoneRing 1.5s ease-in-out infinite;
+        }
+
+        .phone-screen {
+            width: 70px;
+            height: 100px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            border-radius: 8px;
+            margin: 5px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mpesa-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 12px;
+            height: 12px;
+            background: #ef4444;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-right: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .loader-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: #d946ef;
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        .loader-ring:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+
+        .loader-ring:nth-child(2) {
+            animation-delay: -0.3s;
+            border-top-color: #22c55e;
+        }
+
+        .loader-ring:nth-child(3) {
+            animation-delay: -0.15s;
+            border-top-color: #3b82f6;
         }
 
         .success-icon {
@@ -286,6 +354,24 @@
         }
 
         .success-icon svg {
+            width: 50px;
+            height: 50px;
+            color: white;
+        }
+
+        .warning-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .warning-icon svg {
             width: 50px;
             height: 50px;
             color: white;
@@ -335,6 +421,25 @@
             font-size: 0.875rem;
         }
 
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-processing {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -364,6 +469,29 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes phoneRing {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-5deg);
+            }
+            75% {
+                transform: rotate(5deg);
+            }
         }
 
         @keyframes scaleIn {
@@ -451,6 +579,7 @@
         <button class="btn-secondary" onclick="goBack()">Back to Loan Options</button>
     </div>
 
+    <!-- Confirm Payment Modal -->
     <div class="modal-overlay" id="confirmModal">
         <div class="modal">
             <div class="modal-header">
@@ -497,16 +626,54 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="processingModal">
+    <!-- STK Push Waiting Modal -->
+    <div class="modal-overlay" id="stkWaitingModal">
         <div class="modal">
             <div class="text-center">
-                <div class="spinner" style="width: 60px; height: 60px; border-width: 4px; margin: 0 auto 1.5rem;"></div>
-                <div class="message-title">Processing Payment...</div>
-                <div class="message-text" id="processingMessage">Please wait while we process your payment.</div>
+                <div class="phone-icon">
+                    <div class="phone-body">
+                        <div class="phone-screen">
+                            <div class="mpesa-logo">M-PESA</div>
+                            <div class="notification-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-badge status-pending">Payment Pending</div>
+                <div class="message-title">Waiting for Payment</div>
+                <div class="message-text">
+                    A payment request has been sent to<br>
+                    <strong id="stkPhoneNumber"></strong><br><br>
+                    Please enter your M-Pesa PIN on your phone to complete the payment.
+                </div>
+                <div class="tracking-info">
+                    <strong>Reference:</strong><br>
+                    <span id="stkReference"></span>
+                </div>
+                <button class="btn-secondary" onclick="cancelPayment()">Cancel Payment</button>
             </div>
         </div>
     </div>
 
+    <!-- Fee Accepted Modal -->
+    <div class="modal-overlay" id="feeAcceptedModal">
+        <div class="modal">
+            <div class="text-center">
+                <div class="loader">
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
+                </div>
+                <div class="status-badge status-processing">Processing Loan</div>
+                <div class="message-title">Fee Payment Accepted!</div>
+                <div class="message-text">
+                    Your service fee payment of <strong id="feeAcceptedAmount"></strong> has been received.<br><br>
+                    We are now processing your loan application. This may take a few moments...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
     <div class="modal-overlay" id="successModal">
         <div class="modal">
             <div class="text-center">
@@ -526,6 +693,7 @@
         </div>
     </div>
 
+    <!-- Error Modal -->
     <div class="modal-overlay" id="errorModal">
         <div class="modal">
             <div class="text-center">
@@ -545,20 +713,35 @@
     <script>
         let loanData = null;
         let currentBalance = 0;
+        let paymentReference = null;
+        let pollingInterval = null;
 
         window.addEventListener('load', () => {
             const savedData = localStorage.getItem('loanApplication');
             
             if (!savedData) {
-                window.location.href = 'eligibility.html';
-                return;
-            }
-
-            loanData = JSON.parse(savedData);
-            
-            if (!loanData.selectedLoan) {
-                window.location.href = 'loan-options.html';
-                return;
+                loanData = {
+                    selectedLoan: {
+                        amount: 50000,
+                        serviceFee: 500,
+                        interestRate: 5,
+                        repaymentPeriod: 30,
+                        disbursableAmount: 49500
+                    }
+                };
+                localStorage.setItem('loanApplication', JSON.stringify(loanData));
+            } else {
+                loanData = JSON.parse(savedData);
+                
+                if (!loanData.selectedLoan) {
+                    loanData.selectedLoan = {
+                        amount: 50000,
+                        serviceFee: 500,
+                        interestRate: 5,
+                        repaymentPeriod: 30,
+                        disbursableAmount: 49500
+                    };
+                }
             }
 
             updateBalanceDisplay();
@@ -596,11 +779,6 @@
             window.location.href = 'loan-options.html';
         }
 
-        function validatePhoneNumber(phone) {
-            const phoneRegex = /^[0-9]{10}$/;
-            return phoneRegex.test(phone);
-        }
-
         async function processPayment(event) {
             event.preventDefault();
             
@@ -627,7 +805,6 @@
             }
 
             closeConfirmModal();
-            showProcessingModal();
 
             const paymentData = {
                 phone: mpesaNumber,
@@ -636,7 +813,7 @@
             };
 
             try {
-                const response = await fetch('https://swift-capital.onrender.com/pay', {
+                const response = await fetch('/pay', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(paymentData)
@@ -649,32 +826,99 @@
                     result = { success: false, error: "Invalid JSON response from server" };
                 }
 
-                closeProcessingModal();
-
                 if (response.ok && result.success) {
-                    document.getElementById('successTrackingNumber').textContent = result.reference || 'N/A';
-                    const pdfLink = `https://swift-capital.onrender.com/receipt/${result.reference}/pdf`;
-                    document.getElementById('successMessage').innerHTML = `
-                        Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been successfully processed and will be sent to ${mpesaNumber} shortly.<br><br>
-                        <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">📄 Download your receipt</a>
-                    `;
-                    document.getElementById('successModal').classList.add('active');
+                    paymentReference = result.reference;
+                    
+                    // Show STK Push waiting modal
+                    document.getElementById('stkPhoneNumber').textContent = mpesaNumber;
+                    document.getElementById('stkReference').textContent = result.reference;
+                    document.getElementById('stkWaitingModal').classList.add('active');
+                    
+                    // Start polling for payment status
+                    startPaymentStatusPolling(result.reference, mpesaNumber);
                 } else {
-                    showErrorModal(result.error || 'Payment processing failed. Please try again.');
+                    showErrorModal(result.error || 'Failed to send payment request. Please try again.');
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
-                closeProcessingModal();
                 showErrorModal('Network error: Could not reach server. Please check your connection or try again later.');
             }
         }
 
-        function showProcessingModal() {
-            document.getElementById('processingModal').classList.add('active');
+        function startPaymentStatusPolling(reference, phone) {
+            let pollCount = 0;
+            const maxPolls = 40; // 40 polls x 5 seconds = 3 minutes 20 seconds max wait time
+            
+            pollingInterval = setInterval(async () => {
+                pollCount++;
+                
+                try {
+                    const response = await fetch(`/receipt/${reference}`);
+                    const data = await response.json();
+                    
+                    if (data.success && data.receipt) {
+                        const status = data.receipt.status.toLowerCase();
+                        
+                        if (status === 'processing' || status === 'completed') {
+                            // Payment confirmed!
+                            clearInterval(pollingInterval);
+                            closeStkWaitingModal();
+                            
+                            // Show fee accepted modal
+                            document.getElementById('feeAcceptedAmount').textContent = `KES ${loanData.selectedLoan.serviceFee.toLocaleString()}`;
+                            document.getElementById('feeAcceptedModal').classList.add('active');
+                            
+                            // Wait 3 seconds then show loan approved
+                            setTimeout(() => {
+                                closeFeeAcceptedModal();
+                                showLoanApproved(reference, phone);
+                            }, 3000);
+                            
+                        } else if (status === 'cancelled' || status === 'failed' || status === 'stk_failed') {
+                            // Payment failed
+                            clearInterval(pollingInterval);
+                            closeStkWaitingModal();
+                            showErrorModal(data.receipt.status_note || 'Payment was cancelled or failed. Please try again.');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Polling error:', error);
+                }
+                
+                // Timeout after max polls
+                if (pollCount >= maxPolls) {
+                    clearInterval(pollingInterval);
+                    closeStkWaitingModal();
+                    showErrorModal('Payment timeout. Please try again or contact support if money was deducted.');
+                }
+            }, 5000); // Poll every 5 seconds
         }
 
-        function closeProcessingModal() {
-            document.getElementById('processingModal').classList.remove('active');
+        function showLoanApproved(reference, phone) {
+            document.getElementById('successTrackingNumber').textContent = reference;
+            const pdfLink = `/receipt/${reference}/pdf`;
+            document.getElementById('successMessage').innerHTML = `
+                Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been approved!<br><br>
+                The amount will be sent to <strong>${phone}</strong> within the next 5-10 minutes.<br><br>
+                <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">📄 Download your receipt</a>
+            `;
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeStkWaitingModal() {
+            document.getElementById('stkWaitingModal').classList.remove('active');
+        }
+
+        function closeFeeAcceptedModal() {
+            document.getElementById('feeAcceptedModal').classList.remove('active');
+        }
+
+        function cancelPayment() {
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+            }
+            closeStkWaitingModal();
+            openConfirmModal();
         }
 
         function showErrorModal(message) {
@@ -692,4 +936,4 @@
         }
     </script>
 </body>
-    </html>
+</html>
