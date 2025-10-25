@@ -630,66 +630,37 @@
     showProcessingModal();
 
     try {
-    // Prepare payload for PayNecta-compatible backend
-    const paymentData = {
-        phone: mpesaNumber,
-        amount: loanData.selectedLoan.serviceFee,
-        loan_amount: loanData.selectedLoan.amount
-    };
+  const response = await fetch('https://swift-capital.onrender.com/pay', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(paymentData)
+  });
 
-    // ✅ Correct backend endpoint
-    const response = await fetch('https://swift-capital.onrender.com/pay', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(paymentData)
-    });
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    result = { success: false, error: "Invalid JSON response from server" };
+  }
 
-    let result;
-    try {
-        // ✅ Safely parse JSON
-        result = await response.json();
-    } catch (jsonError) {
-        console.warn('Invalid JSON response:', jsonError);
-        result = { success: false, error: 'Invalid response from server.' };
-    }
+  closeProcessingModal();
 
-    closeProcessingModal();
-
-    // ✅ Handle success
-    if (response.ok && result.success) {
-        const reference = result.reference || 'UNKNOWN';
-        document.getElementById('successTrackingNumber').textContent = reference;
-
-        // Update success message dynamically
-        const pdfLink = `https://swift-capital.onrender.com/receipt/${reference}/pdf`;
-        document.getElementById('successMessage').innerHTML = `
-            Your payment request has been received successfully.<br>
-            Please complete the M-Pesa authorization on your phone.<br><br>
-            You can <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">
-            📄 Download your receipt</a> once processed.
-        `;
-
-        showSuccessModal();
-    } 
-    // ⚠️ Handle known backend or API errors
-    else {
-        const errorMessage =
-            result?.error ||
-            result?.message ||
-            'Payment processing failed. Please try again.';
-        showErrorModal(errorMessage);
-    }
-
+  if (response.ok && result.success) {
+    document.getElementById('successTrackingNumber').textContent = result.reference;
+    showSuccessModal();
+    const pdfLink = `https://swift-capital.onrender.com/receipt/${result.reference}/pdf`;
+    document.getElementById('successMessage').innerHTML = `
+      Your payment request has been received successfully.<br>
+      Please complete the M-Pesa authorization on your phone.<br><br>
+      <a href="${pdfLink}" target="_blank" style="color:#22c55e;font-weight:bold;">📄 Download your receipt</a>
+    `;
+  } else {
+    showErrorModal(result.error || 'Payment processing failed. Please try again.');
+  }
 } catch (error) {
-    console.error('Fetch error:', error);
-    closeProcessingModal();
-
-    // 🟢 Show user-friendly fallback even if STK went through
-    showErrorModal(`
-        Network issue detected. <br>
-        Your STK push might still have been sent. <br><br>
-        Please check your phone for an M-Pesa prompt or confirm payment before retrying.
-    `);
+  console.error('Fetch error:', error);
+  closeProcessingModal();
+  showErrorModal('Network error: Could not reach server. Please check your connection or try again later.');
 }
 
         function showProcessingModal() {
