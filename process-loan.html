@@ -14,13 +14,14 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             color: #1f2937;
-            background: #f9fafb;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding-bottom: 2rem;
         }
 
         .navbar {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
@@ -44,127 +45,223 @@
             text-decoration: none;
         }
 
-        .balance-display {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            color: white;
-            font-weight: 600;
-        }
-
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        .loan-summary {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        .summary-title {
-            font-size: 1.5rem;
-            color: #d946ef;
-            margin-bottom: 1.5rem;
-            font-weight: bold;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .summary-row:last-child {
-            border-bottom: none;
-            padding-top: 1rem;
-            margin-top: 0.5rem;
-            border-top: 2px solid #d946ef;
-        }
-
-        .summary-label {
-            font-weight: 600;
-            color: #6b7280;
-        }
-
-        .summary-value {
-            color: #1f2937;
-            font-weight: 600;
-        }
-
-        .summary-value.highlight {
-            color: #22c55e;
-            font-size: 1.2rem;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal {
-            background: white;
+        .balance-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             border-radius: 16px;
             padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease-out;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-header {
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            animation: slideDown 0.6s ease-out;
         }
 
-        .modal-title {
-            font-size: 1.5rem;
-            color: #d946ef;
-            font-weight: bold;
+        .balance-info {
+            flex: 1;
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
+        .balance-label {
+            font-size: 0.9rem;
             color: #6b7280;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .withdraw-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .withdraw-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .loan-details-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out 0.2s backwards;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .loan-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            margin: 0 auto 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .loan-amount-display {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .loan-subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        .details-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        .close-btn:hover {
+        .detail-item:hover {
             background: #f3f4f6;
+            transform: translateX(5px);
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .detail-value {
             color: #1f2937;
+            font-weight: 600;
+        }
+
+        .fee-highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #f59e0b;
+            margin-bottom: 2rem;
+        }
+
+        .fee-text {
+            font-size: 1.1rem;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .btn-pay-fee {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(217, 70, 239, 0.4);
+        }
+
+        .btn-pay-fee:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(217, 70, 239, 0.5);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.3s ease-out;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ef4444;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #6b7280;
         }
 
         .form-group {
@@ -180,7 +277,7 @@
 
         .form-input {
             width: 100%;
-            padding: 0.75rem;
+            padding: 1rem;
             border: 2px solid #e5e7eb;
             border-radius: 8px;
             font-size: 1rem;
@@ -193,146 +290,92 @@
             box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.1);
         }
 
-        .form-input.error {
-            border-color: #ef4444;
-        }
-
-        .error-message {
-            color: #ef4444;
-            font-size: 0.875rem;
+        .input-hint {
+            font-size: 0.85rem;
+            color: #9ca3af;
             margin-top: 0.5rem;
-            display: none;
-            animation: fadeIn 0.3s ease-out;
         }
 
-        .error-message.show {
-            display: block;
-        }
-
-        .info-note {
-            background: #eff6ff;
-            border-left: 4px solid #3b82f6;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-size: 0.875rem;
-            color: #1e40af;
-        }
-
-        .btn-primary {
+        .btn-submit-payment {
             width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            margin-top: 1rem;
         }
 
-        .btn-primary:hover:not(:disabled) {
+        .btn-submit-payment:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(217, 70, 239, 0.4);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
         }
 
-        .btn-primary:disabled {
-            opacity: 0.6;
+        .btn-submit-payment:disabled {
+            background: #9ca3af;
             cursor: not-allowed;
+            transform: none;
         }
 
-        .btn-secondary {
-            width: 100%;
+        .loading {
+            display: none;
+            text-align: center;
             padding: 1rem;
-            background: #f3f4f6;
-            color: #374151;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 0.5rem;
-        }
-
-        .btn-secondary:hover {
-            background: #e5e7eb;
         }
 
         .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #d946ef;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-right: 0.5rem;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
         }
 
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            background: #22c55e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: scaleIn 0.5s ease-out;
-        }
-
-        .success-icon svg {
-            width: 50px;
-            height: 50px;
-            color: white;
-        }
-
-        .error-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            background: #ef4444;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: shake 0.5s ease-out;
-        }
-
-        .error-icon svg {
-            width: 50px;
-            height: 50px;
-            color: white;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .message-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #1f2937;
-        }
-
-        .message-text {
-            color: #6b7280;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .tracking-info {
-            background: #f9fafb;
+        .error-message {
+            background: #fef2f2;
+            color: #991b1b;
             padding: 1rem;
             border-radius: 8px;
-            margin-bottom: 1.5rem;
-            word-break: break-all;
-            font-size: 0.875rem;
+            margin-top: 1rem;
+            display: none;
+            border-left: 4px solid #ef4444;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            color: #166534;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+            border-left: 4px solid #22c55e;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUp 0.6s ease-out 0.1s backwards;
+        }
+
+        .video-placeholder {
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 2rem;
         }
 
         @keyframes fadeIn {
@@ -351,34 +394,36 @@
             }
         }
 
-        @keyframes slideUp {
+        @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateY(50px) scale(0.95);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
             }
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         @keyframes scaleIn {
             from {
-                transform: scale(0);
+                transform: scale(0.9);
+                opacity: 0;
             }
             to {
                 transform: scale(1);
+                opacity: 1;
             }
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         @media (max-width: 768px) {
@@ -386,21 +431,27 @@
                 padding: 0 1rem;
             }
 
-            .loan-summary {
+            .balance-section {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .balance-amount {
+                font-size: 2rem;
+            }
+
+            .loan-amount-display {
+                font-size: 2rem;
+            }
+
+            .loan-details-card {
                 padding: 1.5rem;
             }
 
-            .modal {
-                padding: 1.5rem;
-            }
-
-            .navbar {
-                padding: 1rem;
-            }
-
-            .balance-display {
-                padding: 0.4rem 1rem;
-                font-size: 0.9rem;
+            .modal-content {
+                margin: 10% 1rem;
+                padding: 2rem;
             }
         }
     </style>
@@ -416,141 +467,139 @@
                 </svg>
                 Techspace Finance
             </a>
-            <div class="balance-display" id="balanceDisplay">
-                Balance: KES 0
-            </div>
         </div>
     </nav>
 
     <div class="container">
-        <div class="loan-summary">
-            <div class="summary-title">Loan Summary</div>
-            <div class="summary-row">
-                <span class="summary-label">Loan Amount:</span>
-                <span class="summary-value" id="loanAmount">KES 0</span>
+        <div class="balance-section">
+            <div class="balance-info">
+                <div class="balance-label">Available Balance</div>
+                <div class="balance-amount" id="balanceAmount">KES 0</div>
             </div>
-            <div class="summary-row">
-                <span class="summary-label">Service Fee:</span>
-                <span class="summary-value" id="serviceFee">KES 0</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Interest Rate:</span>
-                <span class="summary-value" id="interestRate">0%</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Repayment Period:</span>
-                <span class="summary-value" id="repaymentPeriod">0 days</span>
-            </div>
-            <div class="summary-row">
-                <span class="summary-label">Amount to Receive:</span>
-                <span class="summary-value highlight" id="disbursableAmount">KES 0</span>
+            <button class="withdraw-btn" onclick="openWithdrawModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12H3M21 12L15 6M21 12L15 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Withdraw
+            </button>
+        </div>
+
+        <div class="video-container">
+            <div class="video-placeholder">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/>
+                    <path d="M10 8L16 12L10 16V8Z" fill="white"/>
+                </svg>
+                <p>Secure & Fast Loan Processing</p>
             </div>
         </div>
 
-        <button class="btn-primary" onclick="openConfirmModal()">Proceed to Payment</button>
-        <button class="btn-secondary" onclick="goBack()">Back to Loan Options</button>
+        <div class="loan-details-card">
+            <div class="card-header">
+                <div class="loan-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2V22M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="loan-amount-display" id="loanAmountDisplay">KES 0</div>
+                <div class="loan-subtitle">Loan Amount Applied</div>
+            </div>
+
+            <div class="details-grid" id="loanDetailsGrid"></div>
+
+            <div class="fee-highlight">
+                <div class="fee-text">
+                    ⚠️ Mandatory Service Fee: <strong id="serviceFeeDisplay">KES 0</strong>
+                </div>
+                <div style="font-size: 0.9rem; color: #92400e; margin-top: 0.5rem;">
+                    This fee must be paid before loan disbursement
+                </div>
+            </div>
+
+            <button class="btn-pay-fee" onclick="openPaymentModal()">
+                💳 Pay Fee Now
+            </button>
+        </div>
     </div>
 
-    <div class="modal-overlay" id="confirmModal">
-        <div class="modal">
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closePaymentModal()">&times;</span>
             <div class="modal-header">
-                <div class="modal-title">Confirm Loan Details</div>
-                <button class="close-btn" onclick="closeConfirmModal()">&times;</button>
+                <div class="modal-title">M-Pesa Payment</div>
+                <div class="modal-subtitle">Enter your M-Pesa number to proceed</div>
             </div>
-            <div class="info-note">
-                <strong>Note:</strong> Please enter your M-Pesa number to receive the loan amount. A service fee of <span id="modalServiceFee">KES 0</span> will be charged to process this loan.
-            </div>
-            <form id="confirmForm" onsubmit="processPayment(event)">
+
+            <form id="paymentForm" onsubmit="submitPayment(event)">
                 <div class="form-group">
                     <label class="form-label">M-Pesa Phone Number</label>
-                    <input 
-                        type="tel" 
-                        id="mpesaNumber" 
-                        class="form-input" 
-                        placeholder="e.g., 0712345678"
-                        pattern="[0-9]{10}"
-                        required
-                    >
-                    <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+                    <input type="tel" class="form-input" id="mpesaNumber" placeholder="254XXXXXXXXX" required pattern="254[0-9]{9}">
+                    <div class="input-hint">Format: 254XXXXXXXXX (without spaces)</div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-label">Confirm Phone Number</label>
-                    <input 
-                        type="tel" 
-                        id="confirmMpesaNumber" 
-                        class="form-input" 
-                        placeholder="Re-enter your phone number"
-                        pattern="[0-9]{10}"
-                        required
-                    >
-                    <div class="error-message" id="confirmPhoneError">Phone numbers do not match</div>
+                    <input type="tel" class="form-input" id="confirmMpesaNumber" placeholder="254XXXXXXXXX" required pattern="254[0-9]{9}">
                 </div>
-                <div class="summary-row">
-                    <span class="summary-label">Service Fee to Pay:</span>
-                    <span class="summary-value" id="feeAmount">KES 0</span>
+
+                <div class="form-group">
+                    <label class="form-label">Amount to Pay</label>
+                    <input type="text" class="form-input" id="paymentAmount" readonly style="background: #f9fafb; font-weight: bold;">
                 </div>
-                <button type="submit" class="btn-primary" id="submitBtn">
-                    Confirm & Pay Service Fee
+
+                <button type="submit" class="btn-submit-payment" id="submitBtn">
+                    Pay Now
                 </button>
-                <button type="button" class="btn-secondary" onclick="closeConfirmModal()">Cancel</button>
             </form>
+
+            <div class="loading" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: #6b7280;">Processing payment...</p>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="processingModal">
-        <div class="modal">
-            <div class="text-center">
-                <div class="spinner" style="width: 60px; height: 60px; border-width: 4px; margin: 0 auto 1.5rem;"></div>
-                <div class="message-title">Processing Payment...</div>
-                <div class="message-text" id="processingMessage">Please wait while we process your payment.</div>
+    <div id="withdrawModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeWithdrawModal()">&times;</span>
+            <div class="modal-header">
+                <div class="modal-title">Withdraw Funds</div>
+                <div class="modal-subtitle">Available Balance: <span id="withdrawBalanceDisplay">KES 0</span></div>
             </div>
-        </div>
-    </div>
 
-    <div class="modal-overlay" id="successModal">
-        <div class="modal">
-            <div class="text-center">
-                <div class="success-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+            <form id="withdrawForm" onsubmit="submitWithdrawal(event)">
+                <div class="form-group">
+                    <label class="form-label">M-Pesa Phone Number</label>
+                    <input type="tel" class="form-input" id="withdrawMpesaNumber" placeholder="254XXXXXXXXX" required pattern="254[0-9]{9}">
                 </div>
-                <div class="message-title">Loan Approved!</div>
-                <div class="message-text" id="successMessage">Your loan has been successfully processed and the amount will be sent to your M-Pesa number shortly.</div>
-                <div class="tracking-info">
-                    <strong>Tracking Number:</strong><br>
-                    <span id="successTrackingNumber"></span>
-                </div>
-                <button class="btn-primary" onclick="window.location.href='index.html'">Back to Home</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal-overlay" id="errorModal">
-        <div class="modal">
-            <div class="text-center">
-                <div class="error-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
+                <div class="form-group">
+                    <label class="form-label">Amount to Withdraw</label>
+                    <input type="number" class="form-input" id="withdrawAmount" placeholder="Enter amount" required min="1">
                 </div>
-                <div class="message-title">Payment Failed</div>
-                <div class="message-text" id="errorMessage">We encountered an error while processing your payment. Please try again.</div>
-                <button class="btn-primary" id="retryBtn" onclick="retryPayment()">Retry Payment</button>
-                <button class="btn-secondary" onclick="closeErrorModal()">Cancel</button>
-            </div>
+
+                <button type="submit" class="btn-submit-payment">
+                    Withdraw Now
+                </button>
+            </form>
+
+            <div class="error-message" id="withdrawErrorMessage"></div>
+            <div class="success-message" id="withdrawSuccessMessage"></div>
         </div>
     </div>
 
     <script>
         let loanData = null;
-        let currentBalance = 0;
+        let userBalance = 0;
 
         window.addEventListener('load', () => {
             const savedData = localStorage.getItem('loanApplication');
             
             if (!savedData) {
-                window.location.href = 'eligibility.html';
+                window.location.href = 'loan-options.html';
                 return;
             }
 
@@ -561,136 +610,238 @@
                 return;
             }
 
-            updateBalanceDisplay();
-            displayLoanSummary();
+            loadBalance();
+            displayLoanDetails();
+            loadSavedPhoneNumber();
         });
 
-        function updateBalanceDisplay() {
-            const balanceDisplay = document.getElementById('balanceDisplay');
-            balanceDisplay.textContent = `Balance: KES ${currentBalance.toLocaleString()}`;
+        function loadBalance() {
+            const balance = localStorage.getItem('userBalance');
+            userBalance = balance ? parseFloat(balance) : 0;
+            document.getElementById('balanceAmount').textContent = `KES ${userBalance.toLocaleString()}`;
         }
 
-        function displayLoanSummary() {
+        function displayLoanDetails() {
             const loan = loanData.selectedLoan;
             
-            document.getElementById('loanAmount').textContent = `KES ${loan.amount.toLocaleString()}`;
-            document.getElementById('serviceFee').textContent = `KES ${loan.serviceFee.toLocaleString()}`;
-            document.getElementById('interestRate').textContent = `${loan.interestRate}%`;
-            document.getElementById('repaymentPeriod').textContent = `${loan.repaymentPeriod} days`;
-            document.getElementById('disbursableAmount').textContent = `KES ${loan.disbursableAmount.toLocaleString()}`;
-            document.getElementById('modalServiceFee').textContent = `KES ${loan.serviceFee.toLocaleString()}`;
-            document.getElementById('feeAmount').textContent = `KES ${loan.serviceFee.toLocaleString()}`;
+            document.getElementById('loanAmountDisplay').textContent = `KES ${loan.amount.toLocaleString()}`;
+            document.getElementById('serviceFeeDisplay').textContent = `KES ${loan.serviceFee.toLocaleString()}`;
+            
+            const detailsGrid = document.getElementById('loanDetailsGrid');
+            detailsGrid.innerHTML = `
+                <div class="detail-item">
+                    <span class="detail-label">Full Name:</span>
+                    <span class="detail-value">${loanData.fullName}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">National ID:</span>
+                    <span class="detail-value">${loanData.nationalId}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Tracking Number:</span>
+                    <span class="detail-value" style="font-size: 0.85rem;">${loan.trackingNumber}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Interest Rate:</span>
+                    <span class="detail-value">${loan.interestRate}%</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Repayment Period:</span>
+                    <span class="detail-value">${loan.repaymentPeriod} days</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Disbursable Amount:</span>
+                    <span class="detail-value" style="color: #22c55e;">KES ${loan.disbursableAmount.toLocaleString()}</span>
+                </div>
+            `;
         }
 
-        function openConfirmModal() {
-            document.getElementById('confirmModal').classList.add('active');
-            document.getElementById('mpesaNumber').value = '';
-            document.getElementById('confirmMpesaNumber').value = '';
+        function loadSavedPhoneNumber() {
+            const savedPhone = localStorage.getItem('userMpesaNumber');
+            if (savedPhone) {
+                document.getElementById('mpesaNumber').value = savedPhone;
+                document.getElementById('confirmMpesaNumber').value = savedPhone;
+            }
         }
 
-        function closeConfirmModal() {
-            document.getElementById('confirmModal').classList.remove('active');
+        function openPaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            const paymentAmount = document.getElementById('paymentAmount');
+            paymentAmount.value = `KES ${loanData.selectedLoan.serviceFee.toLocaleString()}`;
+            modal.style.display = 'block';
         }
 
-        function goBack() {
-            window.location.href = 'loan-options.html';
+        function closePaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            modal.style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
         }
 
-        function validatePhoneNumber(phone) {
-            const phoneRegex = /^[0-9]{10}$/;
-            return phoneRegex.test(phone);
+        function openWithdrawModal() {
+            if (userBalance <= 0) {
+                alert('No fee made. You need to pay the service fee first before you can withdraw.');
+                return;
+            }
+
+            const modal = document.getElementById('withdrawModal');
+            document.getElementById('withdrawBalanceDisplay').textContent = `KES ${userBalance.toLocaleString()}`;
+            
+            const savedPhone = localStorage.getItem('userMpesaNumber');
+            if (savedPhone) {
+                document.getElementById('withdrawMpesaNumber').value = savedPhone;
+            }
+            
+            modal.style.display = 'block';
         }
 
-        async function processPayment(event) {
-    event.preventDefault();
-    
-    const mpesaNumber = document.getElementById('mpesaNumber').value.trim();
-    const confirmMpesaNumber = document.getElementById('confirmMpesaNumber').value.trim();
-    const phoneError = document.getElementById('phoneError');
-    const confirmPhoneError = document.getElementById('confirmPhoneError');
-    
-    phoneError.classList.remove('show');
-    confirmPhoneError.classList.remove('show');
-    document.getElementById('mpesaNumber').classList.remove('error');
-    document.getElementById('confirmMpesaNumber').classList.remove('error');
-
-    if (!/^[0-9]{10}$/.test(mpesaNumber)) {
-        phoneError.classList.add('show');
-        document.getElementById('mpesaNumber').classList.add('error');
-        return;
-    }
-
-    if (mpesaNumber !== confirmMpesaNumber) {
-        confirmPhoneError.classList.add('show');
-        document.getElementById('confirmMpesaNumber').classList.add('error');
-        return;
-    }
-
-    closeConfirmModal();
-    showProcessingModal();
-
-    try {
-        // Prepare payload for PayNecta-compatible backend
-        const paymentData = {
-            phone: mpesaNumber,
-            amount: loanData.selectedLoan.serviceFee,
-            loan_amount: loanData.selectedLoan.amount
-        };
-
-        // ✅ Correct endpoint
-        const response = await fetch('https://swift-capital.onrender.com/pay', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(paymentData)
-        });
-
-        const result = await response.json();
-
-        closeProcessingModal();
-
-        if (response.ok && result.success) {
-            currentBalance += loanData.selectedLoan.disbursableAmount;
-            updateBalanceDisplay();
-            document.getElementById('successTrackingNumber').textContent = result.reference;
-            showSuccessModal();
-        } else {
-            showErrorModal(result.error || 'Payment processing failed. Please try again.');
-        }
-    } catch (error) {
-        console.error('Fetch error:', error);
-        closeProcessingModal();
-        showErrorModal('Network error: Could not reach server. Please check your connection or try again later.');
-    }
-}
-
-        function showProcessingModal() {
-            document.getElementById('processingModal').classList.add('active');
+        function closeWithdrawModal() {
+            const modal = document.getElementById('withdrawModal');
+            modal.style.display = 'none';
+            document.getElementById('withdrawErrorMessage').style.display = 'none';
+            document.getElementById('withdrawSuccessMessage').style.display = 'none';
         }
 
-        function closeProcessingModal() {
-            document.getElementById('processingModal').classList.remove('active');
+        async function submitPayment(event) {
+            event.preventDefault();
+            
+            const mpesaNumber = document.getElementById('mpesaNumber').value;
+            const confirmNumber = document.getElementById('confirmMpesaNumber').value;
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            if (mpesaNumber !== confirmNumber) {
+                errorMsg.textContent = 'Phone numbers do not match!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            localStorage.setItem('userMpesaNumber', mpesaNumber);
+            
+            submitBtn.disabled = true;
+            loadingIndicator.style.display = 'block';
+            
+            try {
+                const response = await fetch('https://swift-capital.onrender.com/api/payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phoneNumber: mpesaNumber,
+                        amount: loanData.selectedLoan.serviceFee,
+                        loanTrackingNumber: loanData.selectedLloan.trackingNumber,
+                        nationalId: loanData.nationalId,
+                        fullName: loanData.fullName
+                    })
+                });
+                
+                const data = await response.json();
+                
+                loadingIndicator.style.display = 'none';
+                
+                if (response.ok) {
+                    successMsg.textContent = 'Payment request sent! Please check your phone for the M-Pesa prompt.';
+                    successMsg.style.display = 'block';
+                    
+                    const newBalance = userBalance + loanData.selectedLoan.disbursableAmount;
+                    localStorage.setItem('userBalance', newBalance);
+                    userBalance = newBalance;
+                    document.getElementById('balanceAmount').textContent = `KES ${userBalance.toLocaleString()}`;
+                    
+                    setTimeout(() => {
+                        closePaymentModal();
+                    }, 3000);
+                } else {
+                    errorMsg.textContent = data.message || 'Payment failed. Please try again.';
+                    errorMsg.style.display = 'block';
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                loadingIndicator.style.display = 'none';
+                errorMsg.textContent = 'Network error. Please check your connection and try again.';
+                errorMsg.style.display = 'block';
+                submitBtn.disabled = false;
+            }
         }
 
-        function showSuccessModal() {
-            document.getElementById('successMessage').textContent = 
-                `Your loan of KES ${loanData.selectedLoan.disbursableAmount.toLocaleString()} has been successfully processed and will be sent to ${document.getElementById('mpesaNumber').value} shortly.`;
-            document.getElementById('successTrackingNumber').textContent = result.reference;
-            document.getElementById('successModal').classList.add('active');
+        async function submitWithdrawal(event) {
+            event.preventDefault();
+            
+            const withdrawPhone = document.getElementById('withdrawMpesaNumber').value;
+            const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value);
+            const errorMsg = document.getElementById('withdrawErrorMessage');
+            const successMsg = document.getElementById('withdrawSuccessMessage');
+            
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            if (withdrawAmount > userBalance) {
+                errorMsg.textContent = 'Insufficient balance!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            if (withdrawAmount < 1) {
+                errorMsg.textContent = 'Please enter a valid amount!';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('https://swift-capital.onrender.com/api/withdraw', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phoneNumber: withdrawPhone,
+                        amount: withdrawAmount,
+                        nationalId: loanData.nationalId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const newBalance = userBalance - withdrawAmount;
+                    localStorage.setItem('userBalance', newBalance);
+                    userBalance = newBalance;
+                    document.getElementById('balanceAmount').textContent = `KES ${userBalance.toLocaleString()}`;
+                    
+                    successMsg.textContent = 'Withdrawal request sent successfully!';
+                    successMsg.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        closeWithdrawModal();
+                        document.getElementById('withdrawForm').reset();
+                    }, 2000);
+                } else {
+                    errorMsg.textContent = data.message || 'Withdrawal failed. Please try again.';
+                    errorMsg.style.display = 'block';
+                }
+            } catch (error) {
+                errorMsg.textContent = 'Network error. Please check your connection and try again.';
+                errorMsg.style.display = 'block';
+            }
         }
 
-        function showErrorModal(message) {
-            document.getElementById('errorMessage').textContent = message;
-            document.getElementById('errorModal').classList.add('active');
-        }
-
-        function closeErrorModal() {
-            document.getElementById('errorModal').classList.remove('active');
-        }
-
-        function retryPayment() {
-            closeErrorModal();
-            openConfirmModal();
+        window.onclick = function(event) {
+            const paymentModal = document.getElementById('paymentModal');
+            const withdrawModal = document.getElementById('withdrawModal');
+            
+            if (event.target === paymentModal) {
+                closePaymentModal();
+            }
+            if (event.target === withdrawModal) {
+                closeWithdrawModal();
+            }
         }
     </script>
 </body>
-    </html>
+</html>
