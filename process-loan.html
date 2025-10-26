@@ -3,7 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Process Loan - Techspace Finance</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Instant M-PESA Loans Kenya - Quick Loan Processing | Techspace Finance</title>
+    <meta name="description" content="Get instant loans in Kenya through M-PESA. Fast approval, low interest rates, and quick disbursement. Check your loan eligibility and apply for M-PESA loans today with Techspace Finance.">
+    <meta name="keywords" content="instant loans Kenya, M-PESA loans, quick loans Kenya, mobile loans, check loan eligibility, fast cash loans, emergency loans Kenya, online loans Kenya, digital loans">
+    <meta name="author" content="Techspace Finance">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourwebsite.com/process-loan.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com/process-loan.html">
+    <meta property="og:title" content="Instant M-PESA Loans Kenya - Quick Loan Processing">
+    <meta property="og:description" content="Get instant loans in Kenya through M-PESA. Fast approval, low interest rates, and quick disbursement.">
+    <meta property="og:image" content="https://yourwebsite.com/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourwebsite.com/process-loan.html">
+    <meta property="twitter:title" content="Instant M-PESA Loans Kenya - Quick Loan Processing">
+    <meta property="twitter:description" content="Get instant loans in Kenya through M-PESA. Fast approval, low interest rates, and quick disbursement.">
+    <meta property="twitter:image" content="https://yourwebsite.com/images/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+    
+    <!-- Schema.org Markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialService",
+      "name": "Techspace Finance",
+      "description": "Instant M-PESA loans in Kenya with fast approval and disbursement",
+      "url": "https://yourwebsite.com",
+      "logo": "https://yourwebsite.com/logo.png",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "2547",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "KE",
+        "addressLocality": "Nairobi"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+254-XXX-XXXXXX",
+        "contactType": "Customer Service"
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    
     <style>
         * {
             margin: 0;
@@ -17,6 +98,16 @@
             background: #f9fafb;
             min-height: 100vh;
             padding-bottom: 2rem;
+        }
+
+        /* Lazy loading placeholder for images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        img[loading="lazy"] {
+            background: #f3f4f6;
         }
 
         .navbar {
@@ -328,6 +419,87 @@
         @keyframes slideInLeft {
             from { opacity: 0; transform: translateX(-20px); }
             to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Checkbox consent styling */
+        .consent-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .consent-container.error {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .consent-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .consent-label {
+            font-size: 0.9rem;
+            color: #374151;
+            line-height: 1.5;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .consent-phone {
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        /* Success notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #22c55e;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 2000;
+            animation: slideInRight 0.3s ease-out;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            display: flex;
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+
+        .notification-text {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .btn-primary {
@@ -694,6 +866,7 @@
             75% { transform: translateX(10px); }
         }
 
+        /* Mobile optimizations */
         @media (max-width: 768px) {
             .container {
                 padding: 0 1rem;
@@ -715,14 +888,35 @@
                 padding: 0.4rem 1rem;
                 font-size: 0.9rem;
             }
+
+            .notification {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+
+        /* Performance: Reduce animations on low-end devices */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
+    <!-- Success Notification -->
+    <div id="stkNotification" class="notification" role="alert" aria-live="polite">
+        <span class="notification-icon">✓</span>
+        <span class="notification-text" id="notificationText"></span>
+    </div>
+
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <a href="index.html" class="logo" aria-label="Techspace Finance Home">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -730,11 +924,11 @@
                 Techspace Finance
             </a>
             <div class="balance-container">
-                <div class="balance-display" id="balanceDisplay" onclick="showTransactions()">
+                <div class="balance-display" id="balanceDisplay" onclick="showTransactions()" aria-label="Account balance" role="button" tabindex="0">
                     Balance: KES 0
                 </div>
-                <button class="withdraw-btn" onclick="openWithdrawModal()" title="Withdraw funds">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button class="withdraw-btn" onclick="openWithdrawModal()" title="Withdraw funds" aria-label="Withdraw funds">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
@@ -742,9 +936,9 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="loan-summary">
-            <div class="summary-title">Loan Summary</div>
+    <main class="container">
+        <section class="loan-summary" aria-labelledby="loan-summary-title">
+            <h1 class="summary-title" id="loan-summary-title">Loan Summary</h1>
             <div class="summary-row">
                 <span class="summary-label">Loan Amount:</span>
                 <span class="summary-value" id="loanAmount">KES 0</span>
@@ -765,117 +959,77 @@
                 <span class="summary-label">Amount to Receive:</span>
                 <span class="summary-value highlight" id="disbursableAmount">KES 0</span>
             </div>
-        </div>
+        </section>
 
         <button class="btn-primary" onclick="openConfirmModal()">Proceed to Payment</button>
         <button class="btn-secondary" onclick="goBack()">Back to Loan Options</button>
-    </div>
+    </main>
 
-    <div id="confirmModal" class="modal-overlay">
+    <!-- Confirm Modal with Consent Checkbox -->
+    <div id="confirmModal" class="modal-overlay" role="dialog" aria-labelledby="confirm-modal-title" aria-modal="true">
         <div class="modal">
             <div class="modal-header">
-                <div class="modal-title">Confirm Loan Details</div>
-                <button class="close-btn" onclick="closeConfirmModal()">&times;</button>
+                <h2 class="modal-title" id="confirm-modal-title">Confirm Loan Details</h2>
+                <button class="close-btn" onclick="closeConfirmModal()" aria-label="Close modal">&times;</button>
             </div>
-            <div class="info-note">
-                <strong>Note:</strong> Please enter your M-Pesa number to receive the loan amount. A service fee of <span id="modalServiceFee">KES 0</span> will be charged to process this loan.
+            <div class="info-note" role="note">
+                You need to pay a service fee of <strong id="modalServiceFee">KES 0</strong> to activate your loan. This amount will be deducted via M-PESA.
             </div>
-            <form id="confirmForm" onsubmit="processPayment(event)">
+            <form onsubmit="processPayment(event)">
                 <div class="form-group">
-                    <label class="form-label">M-Pesa Phone Number</label>
+                    <label for="mpesaNumber" class="form-label">M-PESA Phone Number</label>
                     <input 
                         type="tel" 
                         id="mpesaNumber" 
                         class="form-input" 
-                        placeholder="e.g., 0712345678"
+                        placeholder="0712345678" 
+                        required 
                         pattern="[0-9]{10}"
-                        required
-                    >
-                    <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+                        maxlength="10"
+                        aria-required="true"
+                        aria-describedby="phoneError">
+                    <div id="phoneError" class="error-message">Please enter a valid 10-digit phone number</div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Confirm Phone Number</label>
+                    <label for="confirmMpesaNumber" class="form-label">Re-enter M-PESA Phone Number</label>
                     <input 
                         type="tel" 
                         id="confirmMpesaNumber" 
                         class="form-input" 
-                        placeholder="Re-enter your phone number"
+                        placeholder="0712345678" 
+                        required 
                         pattern="[0-9]{10}"
-                        required
-                    >
-                    <div class="error-message" id="confirmPhoneError">Phone numbers do not match</div>
+                        maxlength="10"
+                        aria-required="true"
+                        aria-describedby="confirmPhoneError">
+                    <div id="confirmPhoneError" class="error-message">Phone numbers do not match</div>
                 </div>
-                <div class="summary-row">
-                    <span class="summary-label">Service Fee to Pay:</span>
-                    <span class="summary-value" id="feeAmount">KES 0</span>
+                
+                <!-- Consent Checkbox -->
+                <div class="consent-container" id="consentContainer">
+                    <input 
+                        type="checkbox" 
+                        id="phoneConsent" 
+                        class="consent-checkbox"
+                        aria-required="true"
+                        aria-describedby="consentError">
+                    <label for="phoneConsent" class="consent-label">
+                        I consent that the number <span class="consent-phone" id="consentPhoneDisplay">entered above</span> is correct and valid
+                    </label>
                 </div>
-                <button type="submit" class="btn-primary" id="submitBtn">
-                    Confirm & Pay Service Fee
-                </button>
+                <div id="consentError" class="error-message">You must confirm that the phone number is correct</div>
+
+                <button type="submit" class="btn-primary" id="confirmPayBtn">Confirm and Pay Service Fee</button>
                 <button type="button" class="btn-secondary" onclick="closeConfirmModal()">Cancel</button>
             </form>
         </div>
     </div>
 
-    <div id="withdrawModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title">Withdraw Funds</div>
-                <button class="close-btn" onclick="closeWithdrawModal()">&times;</button>
-            </div>
-            <div class="info-note" id="withdrawInfo">
-                Your current balance: <strong id="withdrawBalance">KES 0</strong>
-            </div>
-            <form id="withdrawForm" onsubmit="processWithdrawal(event)">
-                <div class="form-group">
-                    <label class="form-label">Withdrawal Amount (Min: KES 100)</label>
-                    <input 
-                        type="number" 
-                        id="withdrawAmount" 
-                        class="form-input" 
-                        placeholder="Enter amount to withdraw"
-                        min="100"
-                        step="10"
-                        required
-                    >
-                    <div class="error-message" id="withdrawError">Invalid amount</div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">M-Pesa Phone Number</label>
-                    <input 
-                        type="tel" 
-                        id="withdrawPhone" 
-                        class="form-input" 
-                        placeholder="e.g., 0712345678"
-                        pattern="[0-9]{10}"
-                        required
-                    >
-                </div>
-                <button type="submit" class="btn-primary">
-                    Request Withdrawal
-                </button>
-                <button type="button" class="btn-secondary" onclick="closeWithdrawModal()">Cancel</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="transactionsModal" class="modal-overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-title">Transaction History</div>
-                <button class="close-btn" onclick="closeTransactionsModal()">&times;</button>
-            </div>
-            <div class="transaction-list" id="transactionList">
-                <p class="text-center message-text">No transactions yet</p>
-            </div>
-            <button class="btn-secondary" onclick="closeTransactionsModal()">Close</button>
-        </div>
-    </div>
-
-    <div id="stkWaitingModal" class="modal-overlay">
+    <!-- STK Waiting Modal (Cannot be closed during payment) -->
+    <div id="stkWaitingModal" class="modal-overlay" role="dialog" aria-labelledby="stk-waiting-title" aria-modal="true">
         <div class="modal">
             <div class="text-center">
-                <div class="phone-icon">
+                <div class="phone-icon" aria-hidden="true">
                     <div class="phone-body">
                         <div class="phone-screen">
                             <div class="mpesa-logo">M-PESA</div>
@@ -883,94 +1037,164 @@
                         </div>
                     </div>
                 </div>
-                <div class="status-badge status-pending">Payment Pending</div>
-                <div class="message-title">Waiting for Payment</div>
-                <div class="message-text">
-                    A payment request has been sent to<br>
-                    <strong id="stkPhoneNumber"></strong><br><br>
-                    Please enter your M-Pesa PIN on your phone to complete the payment.
+                <h2 class="message-title" id="stk-waiting-title">Check Your Phone</h2>
+                <p class="message-text">
+                    An M-PESA payment request has been sent to <strong id="stkPhoneNumber"></strong>. 
+                    Please enter your M-PESA PIN to complete the payment.
+                </p>
+                <div class="tracking-info" aria-label="Transaction reference">
+                    <strong>Reference:</strong> <span id="stkReference"></span>
                 </div>
-                <div class="tracking-info">
-                    <strong>Reference:</strong><br>
-                    <span id="stkReference"></span>
+                <div class="loader" aria-label="Processing payment" role="status">
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
+                    <div class="loader-ring"></div>
                 </div>
+                <p class="message-text">Please wait while we process your payment...</p>
                 <button class="btn-secondary" onclick="cancelPayment()">Cancel Payment</button>
             </div>
         </div>
     </div>
 
-    <div id="feeAcceptedModal" class="modal-overlay">
+    <!-- Fee Accepted Modal -->
+    <div id="feeAcceptedModal" class="modal-overlay" role="dialog" aria-labelledby="fee-accepted-title" aria-modal="true">
         <div class="modal">
             <div class="text-center">
-                <div class="loader">
-                    <div class="loader-ring"></div>
-                    <div class="loader-ring"></div>
-                    <div class="loader-ring"></div>
+                <div class="success-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
-                <div class="status-badge status-processing">Processing Loan</div>
-                <div class="message-title">Fee Payment Accepted!</div>
-                <div class="message-text">
-                    Your service fee payment of <strong id="feeAcceptedAmount"></strong> has been received.<br><br>
-                    We are now processing your loan application. This may take a few moments...
-                </div>
+                <h2 class="message-title" id="fee-accepted-title">Payment Accepted!</h2>
+                <p class="message-text">
+                    Your service fee of <strong id="feeAcceptedAmount">KES 0</strong> has been received successfully.
+                </p>
+                <p class="message-text">Processing your loan disbursement...</p>
             </div>
         </div>
     </div>
 
-    <div id="successModal" class="modal-overlay">
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay" role="dialog" aria-labelledby="success-title" aria-modal="true">
         <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="success-title">Success!</h2>
+                <button class="close-btn" onclick="closeSuccessModal()" aria-label="Close modal">&times;</button>
+            </div>
             <div class="text-center">
-                <div class="money-video">
-                    <div class="money-rain" style="left: 20%; animation-delay: 0s;">💵</div>
-                    <div class="money-rain" style="left: 50%; animation-delay: 0.5s;">💰</div>
+                <div class="money-video" aria-hidden="true">
+                    <div class="money-rain" style="left: 20%; animation-delay: 0s;">💰</div>
+                    <div class="money-rain" style="left: 50%; animation-delay: 0.5s;">💵</div>
                     <div class="money-rain" style="left: 80%; animation-delay: 1s;">💸</div>
                 </div>
-                <div class="success-icon">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                <div class="message-text" id="successMessage"></div>
+                <div class="tracking-info" aria-label="Transaction reference">
+                    <strong>Reference:</strong> <span id="successTrackingNumber"></span>
                 </div>
-                <div class="message-title">Loan Approved!</div>
-                <div class="message-text" id="successMessage">Your loan has been successfully processed!</div>
-                <div class="tracking-info">
-                    <strong>Tracking Number:</strong><br>
-                    <span id="successTrackingNumber"></span>
-                </div>
-                <button class="btn-primary" onclick="window.location.reload()">View Balance</button>
+                <button class="btn-primary" onclick="closeSuccessModal()">Continue</button>
             </div>
         </div>
     </div>
 
-    <div id="errorModal" class="modal-overlay">
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal-overlay" role="dialog" aria-labelledby="error-title" aria-modal="true">
         <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="error-title">Error</h2>
+                <button class="close-btn" onclick="closeErrorModal()" aria-label="Close modal">&times;</button>
+            </div>
             <div class="text-center">
-                <div class="error-icon">
+                <div class="error-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="message-title">Payment Failed</div>
-                <div class="message-text" id="errorMessage">We encountered an error while processing your payment. Please try again.</div>
-                <button class="btn-primary" id="retryBtn" onclick="retryPayment()">Retry Payment</button>
+                <p class="message-text" id="errorMessage"></p>
+                <button class="btn-primary" onclick="retryPayment()">Try Again</button>
                 <button class="btn-secondary" onclick="closeErrorModal()">Cancel</button>
             </div>
         </div>
     </div>
 
+    <!-- Withdraw Modal -->
+    <div id="withdrawModal" class="modal-overlay" role="dialog" aria-labelledby="withdraw-title" aria-modal="true">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="withdraw-title">Withdraw Funds</h2>
+                <button class="close-btn" onclick="closeWithdrawModal()" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="info-note" role="note">
+                Available Balance: <strong id="withdrawBalance">KES 0</strong>
+            </div>
+            <form onsubmit="processWithdrawal(event)">
+                <div class="form-group">
+                    <label for="withdrawAmount" class="form-label">Withdrawal Amount</label>
+                    <input 
+                        type="number" 
+                        id="withdrawAmount" 
+                        class="form-input" 
+                        placeholder="Enter amount" 
+                        required 
+                        min="1"
+                        aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="withdrawPhone" class="form-label">M-PESA Phone Number</label>
+                    <input 
+                        type="tel" 
+                        id="withdrawPhone" 
+                        class="form-input" 
+                        placeholder="0712345678" 
+                        required 
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        aria-required="true">
+                </div>
+                <button type="submit" class="btn-primary">Confirm Withdrawal</button>
+                <button type="button" class="btn-secondary" onclick="closeWithdrawModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Transactions Modal -->
+    <div id="transactionsModal" class="modal-overlay" role="dialog" aria-labelledby="transactions-title" aria-modal="true">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="transactions-title">Transaction History</h2>
+                <button class="close-btn" onclick="closeTransactionsModal()" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="transaction-list" id="transactionList" role="list">
+            </div>
+        </div>
+    </div>
+
     <script>
-        let loanData = null;
+        const API_BASE = 'https://your-api-endpoint.com/api';
+        
+        let currentPhone = '';
         let currentBalance = 0;
-        let currentPhone = null;
         let hasPaidFee = false;
-        let paymentReference = null;
+        let loanData = {};
         let pollingInterval = null;
+        let paymentReference = '';
 
-const API_BASE = 'https://swift-capital.onrender.com';
-
-
-        window.addEventListener('load', () => {
-            const savedData = localStorage.getItem('loanApplication');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track page view for analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    page_title: 'Process Loan',
+                    page_location: window.location.href,
+                    page_path: window.location.pathname
+                });
+            }
             
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'ViewContent', {
+                    content_name: 'Process Loan Page'
+                });
+            }
+
+            const savedData = localStorage.getItem('loanApplication');
             if (!savedData) {
                 loanData = {
                     selectedLoan: {
@@ -1013,6 +1237,16 @@ const API_BASE = 'https://swift-capital.onrender.com';
             if (savedFeeStatus === 'true') {
                 hasPaidFee = true;
             }
+
+            // Update consent phone number when user types
+            document.getElementById('confirmMpesaNumber').addEventListener('input', function() {
+                const phone = this.value;
+                if (phone) {
+                    document.getElementById('consentPhoneDisplay').textContent = phone;
+                } else {
+                    document.getElementById('consentPhoneDisplay').textContent = 'entered above';
+                }
+            });
         });
 
         function updateBalanceDisplay() {
@@ -1029,17 +1263,36 @@ const API_BASE = 'https://swift-capital.onrender.com';
             document.getElementById('repaymentPeriod').textContent = `${loan.repaymentPeriod} days`;
             document.getElementById('disbursableAmount').textContent = `KES ${loan.disbursableAmount.toLocaleString()}`;
             document.getElementById('modalServiceFee').textContent = `KES ${loan.serviceFee.toLocaleString()}`;
-            document.getElementById('feeAmount').textContent = `KES ${loan.serviceFee.toLocaleString()}`;
+            document.getElementById('feeAcceptedAmount').textContent = `KES ${loan.serviceFee.toLocaleString()}`;
         }
 
         function openConfirmModal() {
             document.getElementById('confirmModal').classList.add('active');
             document.getElementById('mpesaNumber').value = currentPhone || '';
             document.getElementById('confirmMpesaNumber').value = '';
+            document.getElementById('phoneConsent').checked = false;
+            document.getElementById('consentPhoneDisplay').textContent = 'entered above';
+            
+            // Clear any previous errors
+            document.getElementById('phoneError').classList.remove('show');
+            document.getElementById('confirmPhoneError').classList.remove('show');
+            document.getElementById('consentError').classList.remove('show');
+            document.getElementById('consentContainer').classList.remove('error');
         }
 
         function closeConfirmModal() {
             document.getElementById('confirmModal').classList.remove('active');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('stkNotification');
+            const notificationText = document.getElementById('notificationText');
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
         }
 
         function openWithdrawModal() {
@@ -1115,23 +1368,44 @@ const API_BASE = 'https://swift-capital.onrender.com';
             
             const mpesaNumber = document.getElementById('mpesaNumber').value.trim();
             const confirmMpesaNumber = document.getElementById('confirmMpesaNumber').value.trim();
+            const phoneConsent = document.getElementById('phoneConsent').checked;
+            
             const phoneError = document.getElementById('phoneError');
             const confirmPhoneError = document.getElementById('confirmPhoneError');
+            const consentError = document.getElementById('consentError');
             
+            // Clear previous errors
             phoneError.classList.remove('show');
             confirmPhoneError.classList.remove('show');
+            consentError.classList.remove('show');
             document.getElementById('mpesaNumber').classList.remove('error');
             document.getElementById('confirmMpesaNumber').classList.remove('error');
+            document.getElementById('consentContainer').classList.remove('error');
 
+            let hasError = false;
+
+            // Validate phone number
             if (!/^[0-9]{10}$/.test(mpesaNumber)) {
                 phoneError.classList.add('show');
                 document.getElementById('mpesaNumber').classList.add('error');
-                return;
+                hasError = true;
             }
 
+            // Validate phone numbers match
             if (mpesaNumber !== confirmMpesaNumber) {
                 confirmPhoneError.classList.add('show');
                 document.getElementById('confirmMpesaNumber').classList.add('error');
+                hasError = true;
+            }
+
+            // Validate consent checkbox
+            if (!phoneConsent) {
+                consentError.classList.add('show');
+                document.getElementById('consentContainer').classList.add('error');
+                hasError = true;
+            }
+
+            if (hasError) {
                 return;
             }
 
@@ -1157,9 +1431,27 @@ const API_BASE = 'https://swift-capital.onrender.com';
                 if (response.ok && result.success) {
                     paymentReference = result.reference;
                     
+                    // Show green notification that STK push was sent
+                    showNotification(`STK push sent to ${mpesaNumber}`);
+                    
                     document.getElementById('stkPhoneNumber').textContent = mpesaNumber;
                     document.getElementById('stkReference').textContent = result.reference;
                     document.getElementById('stkWaitingModal').classList.add('active');
+                    
+                    // Track payment initiation
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'begin_checkout', {
+                            currency: 'KES',
+                            value: loanData.selectedLoan.serviceFee
+                        });
+                    }
+                    
+                    if (typeof fbq !== 'undefined') {
+                        fbq('track', 'InitiateCheckout', {
+                            currency: 'KES',
+                            value: loanData.selectedLoan.serviceFee
+                        });
+                    }
                     
                     startPaymentStatusPolling(result.reference);
                 } else {
@@ -1191,6 +1483,22 @@ const API_BASE = 'https://swift-capital.onrender.com';
                             
                             document.getElementById('feeAcceptedAmount').textContent = `KES ${loanData.selectedLoan.serviceFee.toLocaleString()}`;
                             document.getElementById('feeAcceptedModal').classList.add('active');
+                            
+                            // Track successful payment
+                            if (typeof gtag !== 'undefined') {
+                                gtag('event', 'purchase', {
+                                    currency: 'KES',
+                                    value: loanData.selectedLoan.serviceFee,
+                                    transaction_id: reference
+                                });
+                            }
+                            
+                            if (typeof fbq !== 'undefined') {
+                                fbq('track', 'Purchase', {
+                                    currency: 'KES',
+                                    value: loanData.selectedLoan.serviceFee
+                                });
+                            }
                             
                             setTimeout(() => {
                                 closeFeeAcceptedModal();
@@ -1235,6 +1543,10 @@ const API_BASE = 'https://swift-capital.onrender.com';
             document.getElementById('successTrackingNumber').textContent = reference;
             document.getElementById('successMessage').innerHTML = message;
             document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
         }
 
         function closeStkWaitingModal() {
