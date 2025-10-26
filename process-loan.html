@@ -1273,6 +1273,11 @@
             document.getElementById('phoneConsent').checked = false;
             document.getElementById('consentPhoneDisplay').textContent = 'entered above';
             
+            // Reset button state
+            const submitBtn = document.getElementById('confirmPayBtn');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirm and Pay Service Fee';
+            
             // Clear any previous errors
             document.getElementById('phoneError').classList.remove('show');
             document.getElementById('confirmPhoneError').classList.remove('show');
@@ -1282,6 +1287,10 @@
 
         function closeConfirmModal() {
             document.getElementById('confirmModal').classList.remove('active');
+            // Reset button state when modal closes
+            const submitBtn = document.getElementById('confirmPayBtn');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirm and Pay Service Fee';
         }
 
         function showNotification(message) {
@@ -1409,9 +1418,13 @@
                 return;
             }
 
+            // Disable the submit button to prevent double submission
+            const submitBtn = document.getElementById('confirmPayBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending STK Push...';
+
             currentPhone = mpesaNumber;
             localStorage.setItem('userPhone', mpesaNumber);
-            closeConfirmModal();
 
             const paymentData = {
                 phone: mpesaNumber,
@@ -1430,6 +1443,9 @@
 
                 if (response.ok && result.success) {
                     paymentReference = result.reference;
+                    
+                    // Close confirm modal ONLY after successful STK push
+                    closeConfirmModal();
                     
                     // Show green notification that STK push was sent
                     showNotification(`STK push sent to ${mpesaNumber}`);
@@ -1455,10 +1471,16 @@
                     
                     startPaymentStatusPolling(result.reference);
                 } else {
+                    // Re-enable button on error
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Confirm and Pay Service Fee';
                     showErrorModal(result.error || 'Failed to send payment request. Please try again.');
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
+                // Re-enable button on error
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Confirm and Pay Service Fee';
                 showErrorModal('Network error: Could not reach server. Please check your connection.');
             }
         }
